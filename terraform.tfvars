@@ -5,4 +5,4 @@
 # image-id = "fd87j6d92jlrbjqbl32q"
 
 # centos-stream-8
-image-id = "fd87jq8nlhdr0uncstqn"
+# image-id = "fd87jq8nlhdr0uncstqn"
