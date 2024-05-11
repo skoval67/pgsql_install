@@ -6,3 +6,9 @@
 
 # centos-stream-8
 # image-id = "fd87jq8nlhdr0uncstqn"
+
+# centos-7
+image-id = "fd81s04tubv7osmuapjf"
+
+# rhel 8
+# image-id = "fd892a86kk3di19fco01"
