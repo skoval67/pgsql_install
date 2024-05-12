@@ -1,1 +1,4 @@
-*.tf
+terraform.tfstate*
+.terraform*
+users.yml
+venv
