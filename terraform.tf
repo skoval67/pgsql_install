@@ -7,12 +7,21 @@ terraform {
 }
 
 provider "yandex" {
-  folder_id = "b1g9cj9hkc9nb77qmv8f"
+  folder_id = var.folder_id
   zone      = "ru-central1-a"
+}
+
+variable "folder_id" {
+  type = string
 }
 
 variable "image-id" {
   type = string
+}
+
+variable "site_name" {
+  type        = string
+  description = "DNS-имя сайта"
 }
 
 resource "yandex_vpc_network" "network1" {}
@@ -53,6 +62,21 @@ resource "yandex_compute_instance" "vm-1" {
   metadata = {
     user-data = "${file("users.yml")}"
   }
+}
+
+resource "yandex_dns_zone" "external_zone" {
+  name        = "externalzone"
+  description = "externalzone"
+  zone        = "${var.site_name}."
+  public      = true
+}
+
+resource "yandex_dns_recordset" "rs1" {
+  zone_id = yandex_dns_zone.external_zone.id
+  name    = "pg.${var.site_name}."
+  type    = "A"
+  ttl     = 200
+  data    = [yandex_compute_instance.vm-1.network_interface.0.nat_ip_address]
 }
 
 output "ip" {
